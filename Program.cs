@@ -509,134 +509,134 @@ namespace TextBasedAdventureGame
                     Console.WriteLine("Please note that you can type in Help at any time for assistance.");
                 }
                 //handling drop 
-                else if (parse[0].Equals("drop") || parse[0].Equals("drop "))
+                else if (parse.Count() > 1)
                 {
-                    if (p1.checkItem(parse[1]))
+                    if (parse[0].Equals("drop") || parse[0].Equals("drop "))
                     {
-                        //p1.checkItem will remove that item from them
-                        //adding that dropped item to any given location 
-                        if (parse[1].Equals(knive.Name))
-                            current.addWeap(knive);
-                        else if (parse[1].Equals(Bat.Name))
-                            current.addWeap(Bat);
-                        else if (parse[1].Equals(nunChucks.Name))
-                            current.addWeap(nunChucks);
-                        else if (parse[1].Equals(nailFile.Name))
-                            current.addWeap(nailFile);
-                        else if (parse[1].Equals(pizza.Name))
-                            current.addFood(pizza);
-                        else if (parse[1].Equals(BigRed))
-                            current.addFood(BigRed);
-                        else if (parse[1].Equals(ItalianBeef.Name))
-                            current.addFood(ItalianBeef);
-                        else if (parse[1].Equals(Shrimp.Name))
-                            current.addFood(Shrimp);
-                        else if (parse[1].Equals(Gogurt.Name))
-                            current.addFood(Gogurt);
-                        else
-                            Console.WriteLine("I do not recoginze that item, please check you spelling");
-                    }
-                    else
-                    {
-                        Console.WriteLine("Invalid command, silly goose!");
-                    }
-                }
-                //handling pickUp
-                else if (parse[0].Equals("pickUp") || parse[0].Equals("pickUp "))
-                {
-                    //checking to see if the location has that item
-                    if (current.checkItemsRemove(parse[1]))
-                    {
-                        //the current.checkItemsRemove will remove that item from that location
-                        //now we have to add that item to the p1 inventory 
-                        if (parse[1].Equals(knive.Name))
-                            p1.addWeapon(knive);
-                        else if (parse[1].Equals(Bat.Name))
-                            p1.addWeapon(Bat);
-                        else if (parse[1].Equals(nunChucks.Name))
-                            p1.addWeapon(nunChucks);
-                        else if (parse[1].Equals(nailFile.Name))
-                            p1.addWeapon(nailFile);
-                        else if (parse[1].Equals(pizza.Name))
-                            p1.addFood(pizza);
-                        else if (parse[1].Equals(BigRed))
-                            p1.addFood(BigRed);
-                        else if (parse[1].Equals(ItalianBeef.Name))
-                            p1.addFood(ItalianBeef);
-                        else if (parse[1].Equals(Shrimp.Name))
-                            p1.addFood(Shrimp);
-                        else if (parse[1].Equals(Gogurt.Name))
-                            p1.addFood(Gogurt);
-                        else
-                            Console.WriteLine("I do not recoginze that item, please check you spelling");
-                    }
-                    else
-                    {
-                        Console.WriteLine("Invalid command");
-                    }
-                }
-                else if (parse[0].Equals("moveTo"))
-                {
-                    if (parse[1].Equals(Chicago.Name) && current.hasExit(parse[1]))
-                    {
-                        current = Chicago;
-                        p1.setCurrentLocation(current);
-                    }
-                    else if (parse[1].Equals(Texas.Name) && current.hasExit(parse[1]))
-                    {
-                        current = Texas;
-                        p1.setCurrentLocation(current);
-                    }
-                    else if (parse[1].Equals(Iowa.Name) && current.hasExit(parse[1]))
-                    {
-                        current = Iowa;
-                        p1.setCurrentLocation(current);
-                    }
-                    else if (parse[1].Equals(Florida.Name) && current.hasExit(parse[1]))
-                    {
-                        current = Florida;
-                        p1.setCurrentLocation(current);
-                    }
-                    else
-                        Console.WriteLine("Not a valid location, please check your exits and spelling, Thank You");
-                }
-                //handling eating 
-                else if (parse[0].Equals("eat") || parse[0].Equals("Eat"))
-                {
-                    //check to see if they have that item and check if its a solid. 
-                    if (parse[1].Equals(pizza.Name))
-                        p1.eatFood(pizza);
-                    else if (parse[1].Equals(ItalianBeef.Name))
-                        p1.eatFood(ItalianBeef);
-                    else if (parse[1].Equals(Shrimp.Name))
-                    {
-                        //check to see if the player is in Flordia, and has the Bat for the win
-                        if (current.Name.Equals("Florida") && p1.hasWeap(Bat))
+                        if (p1.checkItem(parse[1]))
                         {
-                            p1.eatFood(Shrimp);
-                            Console.WriteLine("Congratulations, You just completed your adventure!");
-                            playing = false;
+                            //p1.checkItem will remove that item from them
+                            //adding that dropped item to any given location 
+                            if (parse[1].Equals(knive.Name))
+                                current.addWeap(knive);
+                            else if (parse[1].Equals(Bat.Name))
+                                current.addWeap(Bat);
+                            else if (parse[1].Equals(nunChucks.Name))
+                                current.addWeap(nunChucks);
+                            else if (parse[1].Equals(nailFile.Name))
+                                current.addWeap(nailFile);
+                            else if (parse[1].Equals(pizza.Name))
+                                current.addFood(pizza);
+                            else if (parse[1].Equals(BigRed.Name))
+                                current.addFood(BigRed);
+                            else if (parse[1].Equals(ItalianBeef.Name))
+                                current.addFood(ItalianBeef);
+                            else if (parse[1].Equals(Shrimp.Name))
+                                current.addFood(Shrimp);
+                            else if (parse[1].Equals(Gogurt.Name))
+                                current.addFood(Gogurt);
+                            else
+                                Console.WriteLine("I do not recoginze that item, please check you spelling");
                         }
                         else
-                            p1.eatFood(Shrimp);
-
+                        {
+                            Console.WriteLine("Invalid command, silly goose!");
+                        }
                     }
-                    else
-                        Console.WriteLine("You cannot eat that.");
-                }
-                //handling drinking
-                else if (parse[0].Equals("drink") || parse[0].Equals("Drink"))
-                {
-                    //checking for drinkable items
-                    if (parse[1].Equals(BigRed.Name))
-                        p1.drinkFood(BigRed);
-                    else if (parse[1].Equals(Gogurt.Name))
-                        p1.drinkFood(Gogurt);
-                    else
-                        Console.WriteLine("No, No!");
+                    //handling pickUp
+                    else if (parse[0].Equals("pickUp") || parse[0].Equals("pickUp "))
+                    {
+                        //checking to see if the location has that item
+                        if (current.checkItemsRemove(parse[1]))
+                        {
+                            //the current.checkItemsRemove will remove that item from that location
+                            //now we have to add that item to the p1 inventory 
+                            if (parse[1].Equals(knive.Name))
+                                p1.addWeapon(knive);
+                            else if (parse[1].Equals(Bat.Name))
+                                p1.addWeapon(Bat);
+                            else if (parse[1].Equals(nunChucks.Name))
+                                p1.addWeapon(nunChucks);
+                            else if (parse[1].Equals(nailFile.Name))
+                                p1.addWeapon(nailFile);
+                            else if (parse[1].Equals(pizza.Name))
+                                p1.addFood(pizza);
+                            else if (parse[1].Equals(BigRed))
+                                p1.addFood(BigRed);
+                            else if (parse[1].Equals(ItalianBeef.Name))
+                                p1.addFood(ItalianBeef);
+                            else if (parse[1].Equals(Shrimp.Name))
+                                p1.addFood(Shrimp);
+                            else if (parse[1].Equals(Gogurt.Name))
+                                p1.addFood(Gogurt);
+                            else
+                                Console.WriteLine("I do not recoginze that item, please check you spelling");
+                        }
+                    }
+                    else if (parse[0].Equals("moveTo"))
+                    {
+                        if (parse[1].Equals(Chicago.Name) && current.hasExit(parse[1]))
+                        {
+                            current = Chicago;
+                            p1.setCurrentLocation(current);
+                        }
+                        else if (parse[1].Equals(Texas.Name) && current.hasExit(parse[1]))
+                        {
+                            current = Texas;
+                            p1.setCurrentLocation(current);
+                        }
+                        else if (parse[1].Equals(Iowa.Name) && current.hasExit(parse[1]))
+                        {
+                            current = Iowa;
+                            p1.setCurrentLocation(current);
+                        }
+                        else if (parse[1].Equals(Florida.Name) && current.hasExit(parse[1]))
+                        {
+                            current = Florida;
+                            p1.setCurrentLocation(current);
+                        }
+                        else
+                            Console.WriteLine("Not a valid location, please check your exits and spelling, Thank You");
+                    }
+                    //handling eating 
+                    else if (parse[0].Equals("eat") || parse[0].Equals("Eat"))
+                    {
+                        //check to see if they have that item and check if its a solid. 
+                        if (parse[1].Equals(pizza.Name))
+                            p1.eatFood(pizza);
+                        else if (parse[1].Equals(ItalianBeef.Name))
+                            p1.eatFood(ItalianBeef);
+                        else if (parse[1].Equals(Shrimp.Name))
+                        {
+                            //check to see if the player is in Flordia, and has the Bat for the win
+                            if (current.Name.Equals("Florida") && p1.hasWeap(Bat))
+                            {
+                                p1.eatFood(Shrimp);
+                                Console.WriteLine("Congratulations, You just completed your adventure!");
+                                playing = false;
+                            }
+                            else
+                                p1.eatFood(Shrimp);
+
+                        }
+                        else
+                            Console.WriteLine("You cannot eat that.");
+                    }
+                    //handling drinking
+                    else if (parse[0].Equals("drink") || parse[0].Equals("Drink"))
+                    {
+                        //checking for drinkable items
+                        if (parse[1].Equals(BigRed.Name))
+                            p1.drinkFood(BigRed);
+                        else if (parse[1].Equals(Gogurt.Name))
+                            p1.drinkFood(Gogurt);
+                        else
+                            Console.WriteLine("No, No!");
+                    }
                 }
                 else
-                    Console.WriteLine("Invalid command, please check your spelling");
+                    Console.WriteLine("Invalid Command, Please Check Spelling"); 
+                
             }
             Console.ReadLine(); 
 
