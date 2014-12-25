@@ -363,6 +363,21 @@ namespace TextBasedAdventureGame
             return has;
         }
 
+        public bool hasFood(string food)
+        {
+            bool has = false;
+
+            foreach(Food f in Food)
+            {
+                if(f.Name == food)
+                {
+                    has = true;
+                    break; 
+                }
+            }
+
+            return has; 
+        }
     }
 
     public class Weapons
@@ -561,7 +576,7 @@ namespace TextBasedAdventureGame
                                 p1.addWeapon(nailFile);
                             else if (parse[1].Equals(pizza.Name))
                                 p1.addFood(pizza);
-                            else if (parse[1].Equals(BigRed))
+                            else if (parse[1].Equals(BigRed.Name))
                                 p1.addFood(BigRed);
                             else if (parse[1].Equals(ItalianBeef.Name))
                                 p1.addFood(ItalianBeef);
@@ -601,37 +616,48 @@ namespace TextBasedAdventureGame
                     //handling eating 
                     else if (parse[0].Equals("eat") || parse[0].Equals("Eat"))
                     {
-                        //check to see if they have that item and check if its a solid. 
-                        if (parse[1].Equals(pizza.Name))
-                            p1.eatFood(pizza);
-                        else if (parse[1].Equals(ItalianBeef.Name))
-                            p1.eatFood(ItalianBeef);
-                        else if (parse[1].Equals(Shrimp.Name))
+                        if (p1.hasFood(parse[1]))
                         {
-                            //check to see if the player is in Flordia, and has the Bat for the win
-                            if (current.Name.Equals("Florida") && p1.hasWeap(Bat))
+                            //check to see if they have that item and check if its a solid. 
+                            if (parse[1].Equals(pizza.Name))
+                                p1.eatFood(pizza);
+                            else if (parse[1].Equals(ItalianBeef.Name))
+                                p1.eatFood(ItalianBeef);
+                            else if (parse[1].Equals(Shrimp.Name))
                             {
-                                p1.eatFood(Shrimp);
-                                Console.WriteLine("Congratulations, You just completed your adventure!");
-                                playing = false;
-                            }
-                            else
-                                p1.eatFood(Shrimp);
+                                if (p1.hasFood("Shrimp"))
+                                {
+                                    //check to see if the player is in Flordia, and has the Bat for the win
+                                    if (current.Name.Equals("Florida") && p1.hasWeap(Bat))
+                                    {
+                                        p1.eatFood(Shrimp);
+                                        Console.WriteLine("Congratulations, You just completed your adventure!");
+                                        playing = false;
+                                    }
+                                    else
+                                        p1.eatFood(Shrimp);
+                                }
 
+                            }
                         }
                         else
-                            Console.WriteLine("You cannot eat that.");
+                            Console.WriteLine("You cannot eat that"); 
                     }
                     //handling drinking
                     else if (parse[0].Equals("drink") || parse[0].Equals("Drink"))
                     {
-                        //checking for drinkable items
-                        if (parse[1].Equals(BigRed.Name))
-                            p1.drinkFood(BigRed);
-                        else if (parse[1].Equals(Gogurt.Name))
-                            p1.drinkFood(Gogurt);
+                        if (p1.hasFood(parse[1]))
+                        {
+                            //checking for drinkable items
+                            if (parse[1].Equals(BigRed.Name))
+                                p1.drinkFood(BigRed);
+                            else if (parse[1].Equals(Gogurt.Name))
+                                p1.drinkFood(Gogurt);
+                            else
+                                Console.WriteLine("No, No!");
+                        }
                         else
-                            Console.WriteLine("No, No!");
+                            Console.WriteLine("You cannot drink that"); 
                     }
                 }
                 else
@@ -643,13 +669,10 @@ namespace TextBasedAdventureGame
         }
     }
 
-
-
     class Program
     {
         static void Main(string[] args)
         {
-
             TextBasedAdventureGame game = new TextBasedAdventureGame();
             game.play();
         }
